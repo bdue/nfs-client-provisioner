@@ -20,7 +20,10 @@ rules:
     verbs: ["get", "list", "watch"]
   - apiGroups: [""]
     resources: ["events"]
-    verbs: ["list", "watch", "create", "update", "patch"]
+    verbs: ["create", "update", "patch"]
+  - apiGroups: [""]
+    resources: ["endpoints"]
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
@@ -59,13 +62,13 @@ spec:
             - name: PROVISIONER_NAME
               value: nfs-provisioner
             - name: NFS_SERVER
-              value: 10.10.10.3
+              value: 10.11.12.5
             - name: NFS_PATH
               value: /var/nfs
       volumes:
         - name: nfs-client-root
           nfs:
-            server: 10.10.10.3
+            server: 10.11.12.5
             path: /var/nfs
 ---
 apiVersion: storage.k8s.io/v1beta1
